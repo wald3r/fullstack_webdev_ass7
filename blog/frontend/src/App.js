@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-labels */
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import Notification from './components/Notification'
 import Error from './components/Error'
 import { useUsername, usePassword } from './hooks'
@@ -9,45 +9,45 @@ import { setUser, removeUser } from './reducers/userReducer'
 import { handleError } from './reducers/errorReducer'
 import { getAllUsers } from './reducers/usersReducer'
 import { connect } from 'react-redux'
-import { BrowserRouter as Router, Route, Link, Redirect, withRouter } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import UserInformation from './components/UserInformation'
 import Home from './components/Home'
 import Login from './components/Login'
-import blogService from './services/blogs'
+import { Button } from 'react-bootstrap'
 
 const App = ( props ) => {
 
     const { resetpasswd, ...password } = usePassword('password')
     const { resetusername, ...username } = useUsername('username')
-    const [user, setUser] = useState(null)
+   // const [user, setUser] = useState(null)
 
-
+    const padding = { padding: 5 }
 
     useEffect(() => {
+        //window.localStorage.removeItem('loggedBlogappUser')
         const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
         if (loggedUserJSON) {
             const user = JSON.parse(loggedUserJSON)
-            setUser(user)
-            window.localStorage.setItem('loggedBlogappUser', JSON.stringify(user))
-            blogService.setToken(user.token)
+            //setUser(user)
+            //window.localStorage.setItem('loggedBlogappUser', JSON.stringify(user))
+            //blogService.setToken(user.token)
             props.getAllUsers()
-            //props.setUser(user)s
+            props.setUser(user)
             props.initBlogs()
         }
     }, [])
 
     const handleLogout = () => {
         try{
-            //props.removeUser()
-            setUser(null)
-            window.localStorage.removeItem('loggedBlogappUser')
+            props.removeUser()
+            //setUser(null)
+            //window.localStorage.removeItem('loggedBlogappUser')
             props.handleNotification('Logout successfully, 5000')
         }catch(exception){
             props.handleError('Logout failed!', 5000)
         }
     }
-
-    if(user === null){
+    if(props.user === null){
         return(
             <div>
                 <Notification />
@@ -59,22 +59,23 @@ const App = ( props ) => {
                             password={password}
                             resetpasswd={() => resetpasswd()}
                             resetusername={() => resetusername()}
-                            handleUser={() => setUser()}
                         /> } />
                 </Router>
             </div>
         )
     }else{
         return(
-            <div>
+            <div className='container'>
                 <Notification />
                 <Error />
-                <div>
-                    {username.value} is logged in
-                    <button onClick={handleLogout}>logout</button>
-                </div>
                 <Router>
-                    <Route exact path='/' render={() => <Home user={user}/>} />
+                    <div>
+                        <h1>Blog app</h1>
+                        <Link style={padding} to='/'>Home</Link>
+                        <Link style={padding} to='/users'>Users</Link>
+                        {username.value} is logged in <Button onClick={handleLogout}>logout</Button>
+                    </div>
+                    <Route exact path='/' render={() => <Home />} />
                     <Route path='/users' render={() => <UserInformation /> } />
                 </Router>
             </div>

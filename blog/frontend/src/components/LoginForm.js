@@ -1,9 +1,10 @@
 import React from 'react'
-
+import { Form, Button } from 'react-bootstrap'
 
 const LoginForm = ({ username, password, handleSubmit }) => (
-    <form onSubmit={handleSubmit}>
-        <h1>log in to application</h1>
+
+    <Form onSubmit={handleSubmit}>
+        <h2>log in to application</h2>
         <div>
             username <input
                 {...username}
@@ -14,10 +15,9 @@ const LoginForm = ({ username, password, handleSubmit }) => (
                 {...password}
             />
         </div>
-        <button type="submit">login</button>
-    </form>
+        <Button type="submit">login</Button>
+    </Form>
 )
-
 
 
 export default LoginForm

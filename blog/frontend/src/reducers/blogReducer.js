@@ -16,7 +16,6 @@ export const addNewBlog = (blog) => {
 export const initBlogs = () => {
     return async dispatch => {
         const blogs = await blogService.getAll()
-        console.log(blogs)
         dispatch({
             type: 'INITBLOGS',
             data: blogs

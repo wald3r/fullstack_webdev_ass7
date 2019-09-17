@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button } from 'react-bootstrap'
 
 
 
@@ -24,7 +25,7 @@ const AddBlogForm = ({ handleAddBlog, handleTitleChange, handleAuthorChange, han
                 onChange={handleUrlChange}
             />
         </div>
-        <button type="submit">create</button>
+        <Button type="submit">create</Button>
     </form>
 
 

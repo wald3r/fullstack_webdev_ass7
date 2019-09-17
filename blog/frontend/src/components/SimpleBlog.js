@@ -1,4 +1,6 @@
 import React from 'react'
+import { Button } from 'react-bootstrap'
+
 
 const SimpleBlog = ({ blog, onClick }) => (
     <div>
@@ -7,7 +9,7 @@ const SimpleBlog = ({ blog, onClick }) => (
         </div>
         <div>
         blog has {blog.likes} likes
-            <button onClick={onClick}>like</button>
+            <Button onClick={onClick}>like</Button>
         </div>
     </div>
 )

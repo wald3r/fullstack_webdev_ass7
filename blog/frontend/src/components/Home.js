@@ -8,7 +8,7 @@ import Togglable from './Togglable'
 import Blog from './Blog'
 
 
-const Home = ( { user, ...props } ) => {
+const Home = ( props ) => {
 
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
@@ -63,6 +63,7 @@ const Home = ( { user, ...props } ) => {
                     />
                 </Togglable>
             </div>
+            <br></br>
             <ul>
                 {props.blogs.map(blog =>
                     <Blog
@@ -70,7 +71,7 @@ const Home = ( { user, ...props } ) => {
                         blog={blog}
                         handleRemoval={() => handleRemoval(blog)}
                         handleLikes={() => handleLikes(blog)}
-                        user={user} /> )}
+                        user={props.user} /> )}
             </ul>
         </div>
     )
@@ -81,6 +82,7 @@ const mapStateToProps = (state) => {
         blogs: state.blogs,
         notification: state.notification,
         error: state.error,
+        user: state.user,
     }
 }
 
