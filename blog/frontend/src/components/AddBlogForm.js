@@ -7,23 +7,26 @@ const AddBlogForm = ({ handleAddBlog, handleTitleChange, handleAuthorChange, han
 
     <form onSubmit={handleAddBlog}>
         <h1>Add Blog</h1>
-        <div>
-            title <input
+        <div className='row'>
+            <div className='col-sm-1'>Title</div>
+            <div className='col-sm-1'><input
                 value={title}
-                onChange={handleTitleChange}
-            />
+                onChange={handleTitleChange}/>
+            </div>
         </div>
-        <div>
-            author <input
+        <div className='row'>
+            <div className='col-sm-1'>Author</div>
+            <div className='col-sm-1'><input
                 value={author}
-                onChange={handleAuthorChange}
-            />
+                onChange={handleAuthorChange}/>
+            </div>
         </div>
-        <div>
-            url <input
+        <div className='row'>
+            <div className='col-sm-1'>Url</div>
+            <div className='col-sm-1'><input
                 value={url}
-                onChange={handleUrlChange}
-            />
+                onChange={handleUrlChange}/>
+            </div>
         </div>
         <Button type="submit">create</Button>
     </form>

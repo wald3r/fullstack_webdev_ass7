@@ -6,20 +6,39 @@ const UserInfo = ( { user, blogs } ) => {
     if(user === undefined){
         return null
     }
-    console.log(user)
-    const findBlogById = (id) => blogs.find(blog => blog.id === id)
+
+    if(blogs === undefined){
+        return null
+    }
+
+    const findBlogTitleById = (id) => {
+        const blog = blogs.find(blog => blog.id === id)
+        if(blog === undefined){
+            return null
+        }
+        else {
+            return blog.title
+        }
+    }
 
     return (
         <div>
+            <br></br>
             <h2>{user.name}</h2>
-            <div>added blogs</div>
-            <ul>
-                {user.blogs.map(blog =>
-                    <li key={blog}>
-                        <div>{blog}</div>
-                    </li>
-                )}
-            </ul>
+            <table className='table .table-striped'>
+                <thead className='thead-dark'>
+                    <tr>
+                        <th>added blogs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {user.blogs.map(blog =>
+                        <tr key={blog}>
+                            <td>{findBlogTitleById(blog)}</td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
         </div>
     )
 }
@@ -30,4 +49,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(UserInfo)
+export default connect(mapStateToProps, null)(UserInfo)

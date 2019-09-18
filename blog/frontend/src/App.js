@@ -36,8 +36,8 @@ const App = ( props ) => {
     }, [])
 
     const findBlogById = (id) => props.blogs.find(blog => blog.id === id)
-
     const findUserById = (id) => props.users.find(user => user.id === id)
+
     const handleLogout = () => {
         try{
             props.removeUser()
@@ -77,8 +77,8 @@ const App = ( props ) => {
                     </div>
                     <Route exact path='/' render={(props) => <Home {...props}/>} />
                     <Route exact path='/users' render={(props) => <Users {...props}/> } />
-                    <Route exact path='/blogs/:id' render={({ match }) => <BlogInfo blog={findBlogById(match.params.id)} />} />
-                    <Route exact path='/users/:id' render={({ match }) => <UserInfo user={findUserById(match.params.id)} />} />
+                    <Route exact path='/blogs/:id' render={({ match, ...props }) => <BlogInfo {...props} blog={findBlogById(match.params.id)} />} />
+                    <Route exact path='/users/:id' render={({ match, ...props }) => <UserInfo {...props} user={findUserById(match.params.id)} />} />
                 </Router>
             </div>
         )

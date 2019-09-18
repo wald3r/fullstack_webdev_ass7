@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { likeBlog, removeBlog } from '../reducers/blogReducer'
 import { handleNotification } from '../reducers/notificationReducer'
 
+
 const BlogInfo = ({ blog, ...props }) => {
 
     if(blog === undefined){
@@ -10,8 +11,7 @@ const BlogInfo = ({ blog, ...props }) => {
     }
 
     const hideWhenNoAuthorization = { display: props.user.id === blog.user.id ? '' : 'none' }
-    console.log(hideWhenNoAuthorization)
-    
+
     const handleLikes = () => {
         props.likeBlog(blog)
         props.handleNotification(`you liked blog ${blog.title} from author ${blog.author}`, 5000)
@@ -23,6 +23,7 @@ const BlogInfo = ({ blog, ...props }) => {
         if(result){
             props.removeBlog(blog)
             props.handleNotification(`blog ${blog.title} by ${blog.author} got deleted`, 5000)
+            props.history.push('/')
         }
     }
 

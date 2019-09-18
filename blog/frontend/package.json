@@ -20,7 +20,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build1": "webpack --mode=development"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -42,6 +43,8 @@
     "@testing-library/jest-dom": "^4.1.0",
     "@testing-library/react": "^9.1.4",
     "deep-freeze": "0.0.1",
-    "eslint-plugin-jest": "^22.16.0"
+    "eslint-plugin-jest": "^22.16.0",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9"
   }
 }

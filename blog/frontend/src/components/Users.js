@@ -1,6 +1,7 @@
 import React from 'react'
 import { getAllUsers } from '../reducers/usersReducer'
 import { connect } from 'react-redux'
+// eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 

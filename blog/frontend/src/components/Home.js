@@ -14,7 +14,6 @@ const Home = ( { ...props } ) => {
     const [author, setAuthor] = useState('')
     const [url, setUrl] = useState('')
 
-
     const handleAddBlog = event => {
         event.preventDefault()
         console.log('adding blog', title, author, url)
@@ -49,14 +48,20 @@ const Home = ( { ...props } ) => {
                 </Togglable>
             </div>
             <br></br>
-            <h2>added blogs</h2>
-            <ul>
-                {props.blogs.map(blog =>
-                    <Blog
-                        key={blog.id}
-                        blog={blog}
-                    /> )}
-            </ul>
+            <table className='table .table-striped'>
+                <thead className='thead-dark'>
+                    <tr>
+                        <th>blogs added</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {props.blogs.map(blog =>
+                        <Blog
+                            key={blog.id}
+                            blog={blog}
+                        /> )}
+                </tbody>
+            </table>
         </div>
     )
 }
