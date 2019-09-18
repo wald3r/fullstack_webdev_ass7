@@ -1,8 +1,30 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { likeBlog, removeBlog } from '../reducers/blogReducer'
+import { handleNotification } from '../reducers/notificationReducer'
 
-const BlogInfo = ({ blog, handleLikes, handleRemoval, user }) => {
+const BlogInfo = ({ blog, ...props }) => {
 
-    const hideWhenNoAuthorization = { display: user.id === blog.user.id ? '' : 'none' }
+    if(blog === undefined){
+        return null
+    }
+
+    const hideWhenNoAuthorization = { display: props.user.id === blog.user.id ? '' : 'none' }
+    console.log(hideWhenNoAuthorization)
+    
+    const handleLikes = () => {
+        props.likeBlog(blog)
+        props.handleNotification(`you liked blog ${blog.title} from author ${blog.author}`, 5000)
+    }
+
+
+    const handleRemoval = () => {
+        const result = window.confirm(`Do you really want to delete blog ${blog.title}?`)
+        if(result){
+            props.removeBlog(blog)
+            props.handleNotification(`blog ${blog.title} by ${blog.author} got deleted`, 5000)
+        }
+    }
 
     const blogStyle = {
         paddingTop: 10,
@@ -13,7 +35,7 @@ const BlogInfo = ({ blog, handleLikes, handleRemoval, user }) => {
     }
 
     return (
-        <li style={blogStyle}>
+        <div style={blogStyle}>
             <p>{blog.title}</p>
             <p>{blog.author}</p>
             <p>{blog.url}</p>
@@ -21,8 +43,23 @@ const BlogInfo = ({ blog, handleLikes, handleRemoval, user }) => {
             <div style={hideWhenNoAuthorization}>
                 <button onClick={handleRemoval}>remove</button>
             </div>
-        </li>
+        </div>
     )
 }
 
-export default BlogInfo
+const mapStateToProps = (state) => {
+    return {
+        blogs: state.blogs,
+        notification: state.notification,
+        error: state.error,
+        user: state.user,
+    }
+}
+
+const mapDispatchToProps = {
+    likeBlog,
+    removeBlog,
+    handleNotification,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BlogInfo)

@@ -45,9 +45,10 @@ export const removeBlog = (blog) => {
     }
 }
 
-
 const blogReducer = (state = [], action) => {
 
+    console.log(action.id)
+    console.log(state)
     let newState = null
     switch(action.type){
 
@@ -63,7 +64,6 @@ const blogReducer = (state = [], action) => {
     case 'REMOVEBLOG':
         newState = state.filter(s => s.id !== action.data.id)
         return [...newState].sort((a,b) => b.likes - a.likes)
-
     default:
         return state
     }

@@ -8,7 +8,7 @@ import Togglable from './Togglable'
 import Blog from './Blog'
 
 
-const Home = ( props ) => {
+const Home = ( { ...props } ) => {
 
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
@@ -33,21 +33,6 @@ const Home = ( props ) => {
 
     }
 
-
-    const handleLikes = (blog) => {
-        props.likeBlog(blog)
-        props.handleNotification(`you liked blog ${blog.title} from author ${blog.author}`, 5000)
-    }
-
-
-    const handleRemoval = (blog) => {
-        const result = window.confirm(`Do you really want to delete blog ${blog.title}?`)
-        if(result){
-            props.removeBlog(blog)
-            props.handleNotification(`blog ${blog.title} by ${blog.author} got deleted`, 5000)
-        }
-    }
-
     return(
         <div>
             <div>
@@ -64,14 +49,13 @@ const Home = ( props ) => {
                 </Togglable>
             </div>
             <br></br>
+            <h2>added blogs</h2>
             <ul>
                 {props.blogs.map(blog =>
                     <Blog
                         key={blog.id}
                         blog={blog}
-                        handleRemoval={() => handleRemoval(blog)}
-                        handleLikes={() => handleLikes(blog)}
-                        user={props.user} /> )}
+                    /> )}
             </ul>
         </div>
     )

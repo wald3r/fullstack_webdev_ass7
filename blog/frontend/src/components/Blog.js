@@ -1,19 +1,22 @@
 import React from 'react'
-import Togglable from './Togglable'
-import BlogInfo from './BlogInfo'
-import ShortBlogInfo from './ShortBlogInfo'
+import { BrowserRouter as Route, Redirect, withRouter, Link } from 'react-router-dom'
 
-const Blog = ({ blog, handleRemoval, handleLikes, user }) => (
-    <div>
-        <Togglable buttonLabel={<ShortBlogInfo blog={blog}/>}>
-            <BlogInfo
-                blog={blog}
-                handleLikes={handleLikes}
-                handleRemoval={handleRemoval}
-                user={user} />
-        </Togglable>
-    </div>
-)
+const Blog = ({ blog }) => {
+
+    const blogStyle = {
+        paddingTop: 10,
+        paddingLeft: 2,
+        border: 'solid',
+        borderWidth: 1,
+        marginBottom: 5
+    }
+
+    return(
+        <div style={blogStyle}>
+            <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+        </div>
+    )
+}
 
 
 export default Blog

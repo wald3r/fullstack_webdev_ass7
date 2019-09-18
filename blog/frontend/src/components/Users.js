@@ -1,8 +1,11 @@
 import React from 'react'
 import { getAllUsers } from '../reducers/usersReducer'
 import { connect } from 'react-redux'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
-const UserInformation = (props) => {
+
+
+const Users = (props) => {
 
     return(
         <div>
@@ -18,7 +21,7 @@ const UserInformation = (props) => {
                 <tbody>
                     {props.users.map(user =>
                         <tr key={user.id}>
-                            <td>{user.name}</td>
+                            <td><Link to={`/users/${user.id}`}>{user.name}</Link></td>
                             <td>{user.blogs.length}</td>
                         </tr>
                     )}
@@ -40,6 +43,6 @@ const mapDispatchToProps = {
     getAllUsers
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserInformation)
+export default connect(mapStateToProps, mapDispatchToProps)(Users)
 
 

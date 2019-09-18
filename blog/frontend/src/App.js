@@ -10,38 +10,37 @@ import { handleError } from './reducers/errorReducer'
 import { getAllUsers } from './reducers/usersReducer'
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import UserInformation from './components/UserInformation'
+import Users from './components/Users'
 import Home from './components/Home'
 import Login from './components/Login'
 import { Button } from 'react-bootstrap'
+import BlogInfo from './components/BlogInfo'
+import UserInfo from './components/UserInfo'
+
 
 const App = ( props ) => {
 
     const { resetpasswd, ...password } = usePassword('password')
     const { resetusername, ...username } = useUsername('username')
-   // const [user, setUser] = useState(null)
 
     const padding = { padding: 5 }
 
     useEffect(() => {
-        //window.localStorage.removeItem('loggedBlogappUser')
         const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
         if (loggedUserJSON) {
             const user = JSON.parse(loggedUserJSON)
-            //setUser(user)
-            //window.localStorage.setItem('loggedBlogappUser', JSON.stringify(user))
-            //blogService.setToken(user.token)
             props.getAllUsers()
             props.setUser(user)
             props.initBlogs()
         }
     }, [])
 
+    const findBlogById = (id) => props.blogs.find(blog => blog.id === id)
+
+    const findUserById = (id) => props.users.find(user => user.id === id)
     const handleLogout = () => {
         try{
             props.removeUser()
-            //setUser(null)
-            //window.localStorage.removeItem('loggedBlogappUser')
             props.handleNotification('Logout successfully, 5000')
         }catch(exception){
             props.handleError('Logout failed!', 5000)
@@ -53,8 +52,9 @@ const App = ( props ) => {
                 <Notification />
                 <Error />
                 <Router>
-                    <Route exact path='/' render={() =>
+                    <Route exact path='/' render={(props) =>
                         <Login
+                            {...props}
                             username={username}
                             password={password}
                             resetpasswd={() => resetpasswd()}
@@ -73,10 +73,12 @@ const App = ( props ) => {
                         <h1>Blog app</h1>
                         <Link style={padding} to='/'>Home</Link>
                         <Link style={padding} to='/users'>Users</Link>
-                        {username.value} is logged in <Button onClick={handleLogout}>logout</Button>
+                        {props.user.username} is logged in <Button onClick={handleLogout}>logout</Button>
                     </div>
-                    <Route exact path='/' render={() => <Home />} />
-                    <Route path='/users' render={() => <UserInformation /> } />
+                    <Route exact path='/' render={(props) => <Home {...props}/>} />
+                    <Route exact path='/users' render={(props) => <Users {...props}/> } />
+                    <Route exact path='/blogs/:id' render={({ match }) => <BlogInfo blog={findBlogById(match.params.id)} />} />
+                    <Route exact path='/users/:id' render={({ match }) => <UserInfo user={findUserById(match.params.id)} />} />
                 </Router>
             </div>
         )
