@@ -35,7 +35,11 @@ const App = ( props ) => {
         }
     }, [])
 
-    const findBlogById = (id) => props.blogs.find(blog => blog.id === id)
+    const findBlogById = (id) => {
+        console.log(props.blogs)
+        const blog = props.blogs.find(blog => blog.id === id)
+        console.log('ew blog',blog)
+        return blog}
     const findUserById = (id) => props.users.find(user => user.id === id)
 
     const handleLogout = () => {
@@ -66,6 +70,7 @@ const App = ( props ) => {
     }else{
         return(
             <div className='container'>
+
                 <Notification />
                 <Error />
                 <Router>

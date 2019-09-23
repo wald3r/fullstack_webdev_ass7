@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Link, Redirect, withRouter} from 'react
 
 
 
-const Menu = ({addNew, anecdotes}) => {
+const Menu = ({addNew, anecdotes, notification}) => {
   const padding = {
     paddingRight: 5
   }
@@ -16,6 +16,9 @@ const Menu = ({addNew, anecdotes}) => {
               <Link style={padding} to="/">anecdotes</Link>
               <Link style={padding} to="/create">create new</Link>
               <Link style={padding} to="/about">about</Link>
+            </div>
+            <div>
+              {notification}
             </div>
             <Route exact path="/" render={() => <AnecdoteList  anecdotes={anecdotes} />} />
             <Route exact path="/anecdotes/:id" render={({ match }) =><Anecdote anecdote={anecdoteById(match.params.id, anecdotes)} />} />
@@ -85,7 +88,6 @@ const CreateNew = (props) => {
     props.history.push('/')
   }
 
-   console.log(props)
   return (
     <div>
       <h2>create a new anecdote</h2>
@@ -135,6 +137,8 @@ const App = () => {
   const addNew = (anecdote) => {
     anecdote.id = (Math.random() * 10000).toFixed(0)
     setAnecdotes(anecdotes.concat(anecdote))
+    setNotification(`${anecdote.content} got added`)
+    setTimeout(() => { setNotification('')}, 10000)
   }
 
   const vote = (id) => {
@@ -151,7 +155,7 @@ const App = () => {
   return (
     <div>
       <h1>Software anecdotes</h1>
-      <Menu anecdotes={anecdotes} addNew={addNew} />
+      <Menu anecdotes={anecdotes} addNew={addNew} notification={notification}/>
       <Footer />
     </div>
   )

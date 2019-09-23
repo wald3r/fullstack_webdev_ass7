@@ -6,11 +6,20 @@ import { handleNotification } from '../reducers/notificationReducer'
 
 const BlogInfo = ({ blog, ...props }) => {
 
+
+
     if(blog === undefined){
         return null
     }
 
-    const hideWhenNoAuthorization = { display: props.user.id === blog.user.id ? '' : 'none' }
+    const hideWhenNoAuthorization = { display: props.user.id === blog.user ? '' : 'none' }
+
+
+
+
+    console.log(hideWhenNoAuthorization)
+    console.log(props.user)
+    console.log(blog)
 
     const handleLikes = () => {
         props.likeBlog(blog)

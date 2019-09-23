@@ -18,8 +18,6 @@ const update = async blog => {
 
 }
 
-
-
 const create = async newBlog => {
 
     const config = {

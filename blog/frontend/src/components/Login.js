@@ -13,18 +13,17 @@ const Login = ( { handleNotification, username, password, handleError, resetuser
         console.log('loggin in with: ', username.value, password.value)
         try{
             loginUser(username.value, password.value)
+            console.log('User is:', props.user)
             handleNotification('Login successfull!', 5000)
-            resetusername()
             resetpasswd()
-            console.log(props)
+            resetusername()
             props.history.push('/')
-            
         }catch(exception){
             handleError('Login failed!', 5000)
-            resetusername()
             resetpasswd()
+            resetusername()
+            props.history.push('/')
         }
-
     }
 
     return(

@@ -2,10 +2,10 @@ import loginService from '../services/login'
 import blogService from '../services/blogs'
 
 export const loginUser = (username, password) => {
+
     return async dispatch => {
         const user = await loginService.login({ username, password })
         blogService.setToken(user.token)
-        console.log(user)
         window.localStorage.setItem('loggedBlogappUser', JSON.stringify(user))
         dispatch({
             type: 'SETUSER',
@@ -13,6 +13,8 @@ export const loginUser = (username, password) => {
         })
     }
 }
+
+
 
 export const setUser = ( user ) => {
     return async dispatch => {
@@ -46,5 +48,6 @@ const userReducer = (state = null, action) => {
         return state
     }
 }
+
 
 export default userReducer
