@@ -4,26 +4,23 @@ import LoginForm from './LoginForm'
 import { connect } from 'react-redux'
 import { handleNotification } from '../reducers/notificationReducer'
 import { handleError } from '../reducers/errorReducer'
-import { loginUser } from '../reducers/userReducer'
+import { setUser } from '../reducers/userReducer'
+import loginService from '../services/login'
 
-const Login = ( { handleNotification, username, password, handleError, resetusername, resetpasswd, loginUser, ...props } ) => {
+const Login = ( { handleNotification, username, password, handleError, resetusername, resetpasswd, setUser, ...props } ) => {
 
     const handleLogin = async event => {
         event.preventDefault()
         console.log('loggin in with: ', username.value, password.value)
-        try{
-            loginUser(username.value, password.value)
-            console.log('User is:', props.user)
+        const user = await loginService.login({ username: username.value, password: password.value })
+        if(user !== undefined){
+            setUser(user)
             handleNotification('Login successfull!', 5000)
-            resetpasswd()
-            resetusername()
-            props.history.push('/')
-        }catch(exception){
+        }else{
             handleError('Login failed!', 5000)
-            resetpasswd()
-            resetusername()
-            props.history.push('/')
         }
+        resetpasswd()
+        resetusername()
     }
 
     return(
@@ -49,7 +46,7 @@ const mapDispatchToProps = {
 
     handleNotification,
     handleError,
-    loginUser,
+    setUser,
 
 }
 

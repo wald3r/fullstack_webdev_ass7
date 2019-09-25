@@ -13,6 +13,17 @@ export const addNewBlog = (blog) => {
     }
 }
 
+export const addCommentToBlog = (blog, comment) => {
+    return async dispatch => {
+        blog.comments = blog.comments.concat(comment)
+        await blogService.update(blog)
+        dispatch({
+            type: 'ADDCOMMENT',
+            data: blog
+        })
+    }
+}
+
 export const initBlogs = () => {
     return async dispatch => {
         const blogs = await blogService.getAll()
@@ -27,28 +38,26 @@ export const initBlogs = () => {
 export const likeBlog = (blog) => {
     return async dispatch => {
         blog.likes += 1
-        const data = await blogService.update(blog)
+        await blogService.update(blog)
         dispatch({
             type: 'LIKEBLOG',
-            data: data
+            data: blog
         })
     }
 }
 
 export const removeBlog = (blog) => {
     return async dispatch => {
-        const data = await blogService.remove(blog)
+        await blogService.remove(blog)
         dispatch({
             type: 'REMOVEBLOG',
-            data: data
+            data: blog
         })
     }
 }
 
 const blogReducer = (state = [], action) => {
 
-    console.log(action.id)
-    console.log(state)
     let newState = null
     switch(action.type){
 
@@ -57,7 +66,9 @@ const blogReducer = (state = [], action) => {
 
     case 'INITBLOGS':
         return action.data.sort((a,b) =>  b.likes-a.likes )
-
+    case 'ADDCOMMENT':
+        newState = state.filter(s => s.id !== action.data.id)
+        return [...newState, action.data].sort((a,b) => b.likes - a.likes)
     case 'LIKEBLOG':
         newState = state.filter(s => s.id !== action.data.id)
         return [...newState, action.data].sort((a,b) => b.likes - a.likes)

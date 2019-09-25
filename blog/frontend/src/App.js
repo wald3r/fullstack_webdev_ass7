@@ -26,22 +26,20 @@ const App = ( props ) => {
     const padding = { padding: 5 }
 
     useEffect(() => {
+        //window.localStorage.removeItem('loggedBlogappUser')
+        props.initBlogs()
         const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
         if (loggedUserJSON) {
             const user = JSON.parse(loggedUserJSON)
             props.getAllUsers()
             props.setUser(user)
-            props.initBlogs()
         }
     }, [])
 
-    const findBlogById = (id) => {
-        console.log(props.blogs)
-        const blog = props.blogs.find(blog => blog.id === id)
-        console.log('ew blog',blog)
-        return blog}
+    const findBlogById = (id) => props.blogs.find(blog => blog.id === id)
+    
     const findUserById = (id) => props.users.find(user => user.id === id)
-
+    
     const handleLogout = () => {
         try{
             props.removeUser()

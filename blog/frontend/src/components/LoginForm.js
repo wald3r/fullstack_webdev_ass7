@@ -7,13 +7,13 @@ const LoginForm = ({ username, password, handleSubmit }) => (
 
         <h1>login to application</h1>
         <div className='row'>
-            <div className='col-sm-1'>Username: </div>
+            <div className='col-sm-2'>   Username:</div>
             <div className='col-sm-1'><input {...username}/>
             </div>
         </div>
         <div className='row'>
-            <div className='col-sm-1'>Password: </div>
-            <div className='col-sm-1'><input {...password}/>
+            <div className='col-sm-2'>   Password:</div>
+            <div className='col-sm-1'><input type='password' {...password}/>
             </div>
         </div>
         <Button type="submit">login</Button>

@@ -1,24 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+
 const UserInfo = ( { user, blogs } ) => {
 
     if(user === undefined){
+        console.log('user is missing')
         return null
     }
 
     if(blogs === undefined){
+        console.log('blog is missing')
         return null
-    }
-
-    const findBlogTitleById = (id) => {
-        const blog = blogs.find(blog => blog.id === id)
-        if(blog === undefined){
-            return null
-        }
-        else {
-            return blog.title
-        }
     }
 
     return (
@@ -33,8 +26,8 @@ const UserInfo = ( { user, blogs } ) => {
                 </thead>
                 <tbody>
                     {user.blogs.map(blog =>
-                        <tr key={blog}>
-                            <td>{findBlogTitleById(blog)}</td>
+                        <tr key={blog.id}>
+                            <td>{blog.title}</td>
                         </tr>
                     )}
                 </tbody>

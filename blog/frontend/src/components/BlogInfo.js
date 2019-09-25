@@ -2,24 +2,20 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { likeBlog, removeBlog } from '../reducers/blogReducer'
 import { handleNotification } from '../reducers/notificationReducer'
+import Comments from './Comments'
+import { Button } from 'react-bootstrap'
+
 
 
 const BlogInfo = ({ blog, ...props }) => {
 
-
-
     if(blog === undefined){
         return null
     }
+    console.log('User:', props.user)
+    console.log('Blog:',blog)
+    const hideWhenNoAuthorization = { display: props.user.id === blog.user.id ? '' : 'none' }
 
-    const hideWhenNoAuthorization = { display: props.user.id === blog.user ? '' : 'none' }
-
-
-
-
-    console.log(hideWhenNoAuthorization)
-    console.log(props.user)
-    console.log(blog)
 
     const handleLikes = () => {
         props.likeBlog(blog)
@@ -45,14 +41,18 @@ const BlogInfo = ({ blog, ...props }) => {
     }
 
     return (
-        <div style={blogStyle}>
-            <p>{blog.title}</p>
-            <p>{blog.author}</p>
-            <p>{blog.url}</p>
-            <p>{blog.likes} <button onClick={handleLikes}>like</button></p>
-            <div style={hideWhenNoAuthorization}>
-                <button onClick={handleRemoval}>remove</button>
+        <div>
+            <div style={blogStyle}>
+                <p>{blog.title}</p>
+                <p>{blog.author}</p>
+                <p>{blog.url}</p>
+                <p>{blog.likes} <Button onClick={handleLikes}>like</Button></p>
+                <div style={hideWhenNoAuthorization}>
+                    <Button onClick={handleRemoval}>remove</Button>
+                </div>
+                <br></br>
             </div>
+            <Comments blog={blog}/>
         </div>
     )
 }
