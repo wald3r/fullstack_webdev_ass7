@@ -2,22 +2,36 @@ import React from 'react'
 import { Form, Button } from 'react-bootstrap'
 
 const LoginForm = ({ username, password, handleSubmit }) => (
+    <div>
+        <Form onSubmit={handleSubmit}>
+            <table className='table .table-striped' width="10">
+                <thead className='thead-dark'>
 
-    <Form onSubmit={handleSubmit}>
+                </thead>
+                <tbody width="10">
+                    <tr>
+                        <td width="10">
+                            Username:
+                        </td>
 
-        <h1>login to application</h1>
-        <div className='row'>
-            <div className='col-sm-2'>   Username:</div>
-            <div className='col-sm-1'><input {...username}/>
-            </div>
-        </div>
-        <div className='row'>
-            <div className='col-sm-2'>   Password:</div>
-            <div className='col-sm-1'><input type='password' {...password}/>
-            </div>
-        </div>
-        <Button type="submit">login</Button>
-    </Form>
+                        <td>
+                            <input {...username} />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="10">
+                            Password:
+                        </td>
+
+                        <td>
+                            <input type='password' {...password} />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <Button type="submit">login</Button>
+        </Form>
+    </div>
 )
 
 

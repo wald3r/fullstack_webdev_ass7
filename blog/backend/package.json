@@ -10,7 +10,6 @@
     "build": "webpack --mode=development",
     "build:ui": "rm -rf build && cd /home/walder/workspaces/fullstack_webdev/fullstack_webdev_ass7/blog/frontend && npm run build --prod && cp -r build /home/walder/workspaces/fullstack_webdev/fullstack_webdev_ass7/blog/backend"
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wald3r/fullstack_webdev_ass7.git"
@@ -18,7 +17,7 @@
   "author": "Daniel Walder",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/wald3r/fullstack_webdev_ass5/issues"
+    "url": "https://github.com/wald3r/fullstack_webdev_ass7/issues"
   },
   "homepage": "https://github.com/wald3r/fullstack_webdev_ass5#readme",
   "dependencies": {
@@ -35,6 +34,7 @@
     "cross-env": "^5.2.0",
     "jest": "^24.8.0",
     "nodemon": "^1.19.1",
+    "path": "^0.12.7",
     "supertest": "^4.0.2",
     "webpack": "^4.40.2",
     "webpack-cli": "^3.3.9"

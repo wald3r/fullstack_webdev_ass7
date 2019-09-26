@@ -1,7 +1,7 @@
-const patch = require('path')
+const path = require('path')
 
 const config = {
-	entry: './src/index.js',
+	entry: './index.js',
 	output: {
 		path: path.resolve(__dirname, 'build'),
 		filename: 'main.js'

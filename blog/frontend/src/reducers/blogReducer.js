@@ -15,11 +15,11 @@ export const addNewBlog = (blog) => {
 
 export const addCommentToBlog = (blog, comment) => {
     return async dispatch => {
-        blog.comments = blog.comments.concat(comment)
-        await blogService.update(blog)
+        const newBlog = { ...blog, comments: blog.comments.concat(comment) }
+        await blogService.update(newBlog)
         dispatch({
             type: 'ADDCOMMENT',
-            data: blog
+            data: newBlog
         })
     }
 }
@@ -37,11 +37,11 @@ export const initBlogs = () => {
 
 export const likeBlog = (blog) => {
     return async dispatch => {
-        blog.likes += 1
-        await blogService.update(blog)
+        const newBlog = { ...blog, likes: blog.likes+1 }
+        await blogService.update(newBlog)
         dispatch({
             type: 'LIKEBLOG',
-            data: blog
+            data: newBlog
         })
     }
 }

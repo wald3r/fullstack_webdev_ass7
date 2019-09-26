@@ -37,9 +37,9 @@ const App = ( props ) => {
     }, [])
 
     const findBlogById = (id) => props.blogs.find(blog => blog.id === id)
-    
+
     const findUserById = (id) => props.users.find(user => user.id === id)
-    
+
     const handleLogout = () => {
         try{
             props.removeUser()
